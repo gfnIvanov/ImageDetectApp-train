@@ -1,0 +1,6 @@
+batch-size: '6'
+epochs: '10'
+img-shape: '128'
+learn-rate: '0.001'
+optim: SDG
+test-size: '0.3'
