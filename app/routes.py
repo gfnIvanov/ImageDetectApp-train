@@ -4,11 +4,11 @@ import yaml
 import logging
 import traceback
 from pathlib import Path
-from app import model
-from dotenv import load_dotenv
+from app import train
+from dotenv import dotenv_values
 
 
-load_dotenv()
+envs = dotenv_values(".env.public")
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 TRAIN_PARAMS = os.path.join(BASE_DIR, "params/process_model.yml")
@@ -19,14 +19,17 @@ async def handler(websocket):
     try:
         async for message in websocket:
             if isinstance(message, str):
+                if message == "done":
+                    await train.train(message, websocket)
+                    return
                 with open(TRAIN_PARAMS, "w") as f:
                     yaml.dump(json.loads(message), f)
                 await websocket.send("200")
             else:
-                await model.train(message, websocket)
+                await train.train(message, websocket)
     except Exception as err:
         app_log.error(err)
-        if os.getenv("MODE") == "dev":
+        if envs["MODE"] == "dev":
             traceback.print_tb(err.__traceback__)
         await websocket.send("500")
     
