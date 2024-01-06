@@ -1,5 +1,5 @@
 batch-size: '6'
-epochs: '10'
+epochs: '2'
 img-shape: '128'
 learn-rate: '0.001'
 optim: SDG
