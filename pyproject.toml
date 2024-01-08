@@ -6,7 +6,7 @@ authors = ["Игорь Иванов <is.ivanov@bars.group>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 python-dotenv = "^1.0.0"
 torch = "^2.1.2"
 torchvision = "^0.16.2"
