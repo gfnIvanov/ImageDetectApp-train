@@ -5,11 +5,11 @@ COPY .env.public .env.public
 COPY .env.secret .env.secret
 ADD app /trainapp/app
 ADD logs /trainapp/logs
-ADD model /trainapp/model
 ADD params /trainapp/params
 COPY poetry.lock poetry.lock
 RUN python -m pip install --upgrade pip
 RUN pip install poetry
 RUN poetry install
+RUN mkdir model
 EXPOSE 5202
 CMD poetry run start
